@@ -2,8 +2,6 @@
 
 namespace Extensions\QuickLinks;
 
-use Extensions\QuickLinks\CreateEdit;
-
 class QuickLinks extends \App\Extension
 {
     public $title = 'Quick Links';
@@ -11,22 +9,23 @@ class QuickLinks extends \App\Extension
     public function register()
     {
         $this->command('Create quick link')
-            ->livewire(CreateEdit::class);
+            ->invoke(CreateEdit::class);
 
         $this->command('Edit quick link')
-            ->livewire(CreateEdit::class, '{id}')
-            ->mode('no-view');
+            ->mode('no-view')
+            ->parameters('{id}')
+            ->invoke(CreateEdit::class);
 
         $this->command('Remove quick link')
-            ->livewire(Remove::class, '{id}')
-            ->mode('no-view');
-            
-        $this->meta('items')->get()->each(fn($quickLink, $id) =>
-            $this->command($quickLink['title'])
-                ->type('Quick link')
-                ->actions('actions', ['id' => $id])
-                ->afterSearch('search', ['quickLink' => $quickLink])
-                ->options('item-options', ['id' => $id])
+            ->mode('no-view')
+            ->parameters('{id}')
+            ->invoke(Remove::class);
+
+        $this->meta('items')->get()->each(fn ($quickLink, $id) => $this->command($quickLink['title'])
+            ->type('Quick link')
+            ->addStack('afterSearch', 'search', ['quickLink' => $quickLink, 'id' => $id])
+            ->addStack('actionPanel', 'action-panel', ['id' => $id], false)
+            ->options('item-options', ['id' => $id])
         );
     }
 }

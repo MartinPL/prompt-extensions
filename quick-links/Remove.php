@@ -2,11 +2,12 @@
 
 namespace Extensions\QuickLinks;
 
-class Remove extends \Livewire\Component
+class Remove
 {
-    public function mount($id)
+    public function __invoke($id)
     {
         QuickLinks::meta('items')->delete(id: $id);
-        $this->redirectRoute('commands');
+
+        return redirect()->back();
     }
 }

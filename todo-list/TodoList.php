@@ -9,6 +9,6 @@ class TodoList extends \App\Extension
     public function register()
     {
         $this->command('Todo list')
-            ->livewire(TodoListCommand::class);
+            ->invoke(TodoListCommand::class);
     }
 }

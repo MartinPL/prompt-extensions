@@ -9,6 +9,6 @@ class Emoji extends \App\Extension
     public function register()
     {
         $this->command('emoji')
-            ->livewire('emoji');
+            ->invoke('emoji');
     }
 }

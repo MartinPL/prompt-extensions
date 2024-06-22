@@ -9,6 +9,6 @@ class Weather extends \App\Extension
     public function register()
     {
         $this->command('Weather')
-            ->livewire(WeatherCommand::class);
+            ->invoke(WeatherCommand::class);
     }
 }

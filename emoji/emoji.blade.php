@@ -30,7 +30,7 @@ state([
         <x-grid-item :title="$emoji">
             {{ $smile }}
             <x-action-panel>
-                <x-action.copy-to-clipboard title="Copy emoji" :content="$smile" index="0" />
+                <x-action.copy-to-clipboard title="Copy emoji" :content="$smile" />
             </x-action-panel>
         </x-grid-item>
     @endforeach
